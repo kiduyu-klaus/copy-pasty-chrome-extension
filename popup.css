@@ -168,7 +168,7 @@ body {
 }
 
 /* Delete Button */
-.content > div:last-child {
+.content>div:last-child {
     flex-shrink: 0;
 }
 
@@ -207,6 +207,27 @@ body {
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     z-index: 1000;
 }
+
+.clipboard-list li {
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    background: var(--bg, white); /* fallback = white */
+}
+
+.delete {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ef4444; /* Tailor color if you like */
+}
+
+
+/* Override background dynamically */
+.clipboard-list li[data-color] {
+    background: var(--bg);
+}
+
 
 .snackbar.show {
     opacity: 1;
