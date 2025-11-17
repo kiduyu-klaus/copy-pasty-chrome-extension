@@ -1,11 +1,52 @@
 console.log("Popup is running");
 let _clipboardList = document.querySelector("#clipboard_list");
 let _itemCount = document.querySelector("#item-count");
+let _deleteAllBtn = document.querySelector("#delete-all-btn");
+let _confirmDialog = document.querySelector("#confirm-dialog");
+let _confirmCancel = document.querySelector("#confirm-cancel");
+let _confirmDelete = document.querySelector("#confirm-delete");
 
 function updateItemCount(count) {
     if (_itemCount) {
         _itemCount.textContent = count === 1 ? '1 item' : `${count} items`;
     }
+    
+    // Show/hide delete all button based on item count
+    if (_deleteAllBtn) {
+        if (count > 0) {
+            _deleteAllBtn.style.display = 'flex';
+        } else {
+            _deleteAllBtn.style.display = 'none';
+        }
+    }
+}
+
+function showSnackbar(message) {
+    let snackbar = document.getElementById("snackbar");
+    let snackbarText = snackbar.querySelector("span");
+    snackbarText.textContent = message;
+    snackbar.classList.add("show");
+    setTimeout(() => { 
+        snackbar.classList.remove("show"); 
+    }, 3000);
+}
+
+function showConfirmDialog() {
+    _confirmDialog.classList.add('show');
+}
+
+function hideConfirmDialog() {
+    _confirmDialog.classList.remove('show');
+}
+
+function deleteAllClipboardItems() {
+    chrome.storage.local.set({'list': []}, () => {
+        console.log("All clipboard items deleted");
+        _clipboardList.innerHTML = "";
+        getClipboardText();
+        hideConfirmDialog();
+        showSnackbar("All items cleared!");
+    });
 }
 
 function getRandomColor() {
@@ -145,13 +186,29 @@ function addClipboardListItem(text){
             });
         });
         
-        let x = document.getElementById("snackbar");
-        x.classList.add("show");
-        setTimeout(function(){ 
-            x.classList.remove("show"); 
-        }, 3000);
+        showSnackbar("Copied to clipboard!");
     });
 }
 
+// Event Listeners
+_deleteAllBtn.addEventListener('click', () => {
+    showConfirmDialog();
+});
 
+_confirmCancel.addEventListener('click', () => {
+    hideConfirmDialog();
+});
+
+_confirmDelete.addEventListener('click', () => {
+    deleteAllClipboardItems();
+});
+
+// Close dialog when clicking outside
+_confirmDialog.addEventListener('click', (event) => {
+    if (event.target === _confirmDialog) {
+        hideConfirmDialog();
+    }
+});
+
+// Initialize
 getClipboardText();
