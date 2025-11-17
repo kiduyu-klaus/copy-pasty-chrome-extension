@@ -1,158 +1,250 @@
-
-body{
-    width:20rem;
-    height: 100%;
-    
-    
-
-}
-nav{
-    background: #00BFFF;
-    height:15px;
-    font-family: 'Roboto', sans-serif;
-}
-
-nav a span {
-    margin-left:0.8rem;
-    font-size: 1.1em;
-}
-nav a img{
-    width: 25px;
-    height: 25px
-}
-#empty-div{
-    background:white
-    
-}
-#not-found{
-    width: 320px;
-}
-#empty-title{
-    text-align: center
-}
-#learn-btn{
-    position: relative;
-    left: 32%
-}
-.lead{
-    color: gray
-}
-.hide-div{
-    position: absolute;;
-    visibility: hidden;
-    width:0;
-    height:0;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    margin-top:20px;
-    overflow: auto;
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff;
+    color: #1f2937;
+    width: 400px;
+    min-height: 500px;
+    max-height: 600px;
+    overflow-y: auto;
 }
-ul li{
-	margin: 10px;
-    font-size: 16px;
-    height: 4rem;
-    border-bottom: 1px solid;
-    border-bottom-color: #00BFFF;
-    box-shadow: 0.3px 0 5px -2.1px rgba(0,0,0,0.5);
-    cursor: pointer;
-    white-space: nowrap
-    
-}
-ul li:hover{
-    background: whitesmoke
-}
-.content{
-    overflow: hidden;
+
+.container {
     display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
+/* Header Styles */
+.header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    z-index: 100;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
     justify-content: space-between;
-    height: 100%;
+    align-items: center;
 }
 
-.list-div{
-    
-    display: contents;
-
-    width:20rem;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.list-div p{
-    position: relative;
-    padding-top:1em; 
-    padding-left: 1.2em;
-    font-size: 1.1em;
-    max-width:17rem;
+.logo svg {
+    color: white;
+}
+
+.logo h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.header-count {
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.empty-state.hide {
+    display: none;
+}
+
+.empty-icon {
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.empty-state h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+    max-width: 280px;
+}
+
+/* Clipboard List */
+.clipboard-list {
+    list-style: none;
+    padding: 12px;
+}
+
+.clipboard-list li {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
     overflow: hidden;
-    width: 17rem
+}
 
+.clipboard-list li:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    transform: translateY(-1px);
+}
 
+.clipboard-list li:active {
+    transform: translateY(0);
 }
-.list-div a{
-    width:4rem;
+
+/* Content Container */
+.content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
 }
-.list-div a img{
-    height: 100%;
-    margin-left:1em;
-    margin-top:1em
+
+/* List Item */
+.list-div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    cursor: pointer;
+    min-width: 0;
 }
-.popup{
-    position:relative;
-    width:30rem;
-    top:-5rem;
-    
+
+.list-div a {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.delete{
+
+.list-div img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f3f4f6;
+    padding: 4px;
+}
+
+.list-div p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    flex: 1;
+}
+
+/* Delete Button */
+.content > div:last-child {
+    flex-shrink: 0;
+}
+
+.delete {
     width: 20px;
     height: 20px;
-    margin-top: 1.4em;
-    margin-right:1em;
-    border: none;
-    outline: none;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all 0.2s ease;
+    filter: grayscale(100%);
 }
 
-#snackbar {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  width:94%;
-  position:fixed;
-  margin-left: 3%;/*  Divide value of min-width by 2 */
-  background-color: #00BFFF; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 1; /* Add a z-index if needed */
-  bottom: 1px;
-}
-	
-#snackbar.show {
-  visibility: visible; 
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+.delete:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: grayscale(0%);
 }
 
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 1px; opacity: 1;}
+/* Snackbar */
+.snackbar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1f2937;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1000;
 }
 
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 1px; opacity: 1;}
+.snackbar.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
-@-webkit-keyframes fadeout {
-  from {bottom: 1px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
+.snackbar svg {
+    color: #10b981;
 }
 
-@keyframes fadeout {
-  from {bottom: 1px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
+/* Scrollbar */
+body::-webkit-scrollbar {
+    width: 8px;
+}
 
+body::-webkit-scrollbar-track {
+    background: #f3f4f6;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Link Favicon Styling */
+.list-div a img {
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+/* YouTube Thumbnail Styling */
+.list-div a img[src*="youtube"] {
+    width: 56px;
+    height: 42px;
+    border-radius: 6px;
+    padding: 0;
 }
