@@ -1,11 +1,11 @@
 {
     "manifest_version": 3,
-    "name": "ClipboardX",
+    "name": "Kclipboard",
     "description": "A chrome extension, work around for a clipboard",
     "version": "1.0",
     "permissions": ["storage", "tabs"],
     "action": {
-        "default_title": "ClipboardX",
+        "default_title": "Kclipboard",
         "default_popup": "popup.html",
         "default_icons": {
             "16": "icon.png",
