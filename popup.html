@@ -23,7 +23,13 @@
                     </svg>
                     <h1>Kclipboard</h1>
                 </div>
-                <div class="header-count" id="item-count">0 items</div>
+                <div class="header-actions">
+                    <div class="header-count" id="item-count">0 items</div>
+                    <button id="delete-all-btn" class="delete-all-btn" title="Clear all clipboard history">
+                        <i class="bi bi-trash3"></i>
+                        Clear All
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -47,9 +53,23 @@
             </svg>
             <span>Copied to clipboard!</span>
         </div>
+
+        <!-- Confirmation Dialog -->
+        <div id="confirm-dialog" class="confirm-dialog">
+            <div class="confirm-content">
+                <div class="confirm-icon">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <h3>Clear All Clipboard History?</h3>
+                <p>This will permanently delete all saved clipboard items. This action cannot be undone.</p>
+                <div class="confirm-buttons">
+                    <button id="confirm-cancel" class="btn-cancel">Cancel</button>
+                    <button id="confirm-delete" class="btn-delete">Clear All</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="popup.js"></script>
 </body>
 </html>
-
