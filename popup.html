@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=0.5">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Copy-Pasty</title>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kclipboard</title>
     <link rel="stylesheet" href="popup.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-       
-    <nav class="navbar navbar-dark fixed-top">
-    </nav>
-    <div id = "empty-div"class="jumbotron jumbotron-fluid hide-div">
-            <div class="container">
-             <img id="not-found"src="https://www.startupindia.gov.in/content/dam/invest-india/Blogs/404.PNG">
-             <h4 id="empty-title">No text found !!</h4>
-              <p class="lead">All your copied text will appear here, select any of them to paste </p>
-              <a target="_blank" id="learn-btn" href="https://github.com/Utsavjain4561/copy-pasty-chrome-extension">
-                Learn More  
-                
-              </a>
-              
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="2" width="8" height="4" rx="1" fill="currentColor"/>
+                        <path d="M6 6C6 4.89543 6.89543 4 8 4H16C17.1046 4 18 4.89543 18 6V20C18 21.1046 17.1046 22 16 22H8C6.89543 22 6 21.1046 6 20V6Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <h1>Kclipboard</h1>
+                </div>
+                <div class="header-count" id="item-count">0 items</div>
             </div>
-          </div>
-    <ul id="clipboard_list"></ul>
-    <div id="snackbar">Text copied!</div>
-   
+        </header>
 
-	
+        <div id="empty-state" class="empty-state">
+            <svg class="empty-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="32" fill="#F3F4F6"/>
+                <path d="M24 20C24 18.8954 24.8954 18 26 18H38C39.1046 18 40 18.8954 40 20V44C40 45.1046 39.1046 46 38 46H26C24.8954 46 24 45.1046 24 44V20Z" fill="#E5E7EB"/>
+                <rect x="28" y="24" width="8" height="2" rx="1" fill="#9CA3AF"/>
+                <rect x="28" y="30" width="8" height="2" rx="1" fill="#9CA3AF"/>
+                <rect x="28" y="36" width="5" height="2" rx="1" fill="#9CA3AF"/>
+            </svg>
+            <h2>No clipboard history yet</h2>
+            <p>Copy any text and it will appear here. Click on any item to copy it again.</p>
+        </div>
+
+        <ul id="clipboard_list" class="clipboard-list"></ul>
+
+        <div id="snackbar" class="snackbar">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.3332 4L5.99984 11.3333L2.6665 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Copied to clipboard!</span>
+        </div>
+    </div>
 
     <script type="text/javascript" src="popup.js"></script>
 </body>
-
 </html>
