@@ -8,6 +8,14 @@ function updateItemCount(count) {
     }
 }
 
+function getRandomColor() {
+    const colors = [
+        "#FDE68A", "#BFDBFE", "#C7D2FE", "#FBCFE8",
+        "#A7F3D0", "#FECACA", "#FCD9BD", "#E5E7EB"
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
 function getClipboardText(){
     chrome.storage.local.get(['list'], clipboard => {
         let list = clipboard.list;
@@ -62,18 +70,24 @@ function getThumbnail(textContent){
     }
     return {
         sourceUrl: "",
-        imageUrl: ""
+        imageUrl: "",
+        isVideo: false
     };
 }
 
 function addClipboardListItem(text){
     let {sourceUrl, imageUrl, isVideo} = getThumbnail(text);
-    let listItem = document.createElement("li"),
-        listDiv = document.createElement("div"),
+    let listItem = document.createElement("li");
+
+    // 🎨 Assign a unique random pastel color to each list item
+    const color = getRandomColor();
+    listItem.style.setProperty("--bg", color);
+    listItem.setAttribute("data-color", "");
+    
+    let listDiv = document.createElement("div"),
         deleteDiv = document.createElement("div"),
-        contentDiv = document.createElement("div");
+        contentDiv = document.createElement("div"),
         deleteButton = document.createElement("a"),
-        deleteImage = document.createElement("img");
         listPara = document.createElement("p"),
         listText = document.createTextNode(text),
         popupLink = document.createElement('a'),
@@ -93,17 +107,17 @@ function addClipboardListItem(text){
     listDiv.classList.add("list-div");
     contentDiv.appendChild(listDiv);
     
-    deleteImage.src = 'https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1432400-1211078.png';
-    deleteImage.classList.add("delete");
+    // Use Bootstrap trash icon instead of data URI
+    deleteDiv.innerHTML = `<i class="bi bi-trash delete"></i>`;
     
-    deleteDiv.appendChild(deleteImage);
     contentDiv.appendChild(deleteDiv);
     contentDiv.classList.add("content");
     listItem.appendChild(contentDiv);
 
     _clipboardList.appendChild(listItem);
     
-    deleteImage.addEventListener('click', (event) => {
+    const deleteIcon = deleteDiv.querySelector(".delete");
+    deleteIcon.addEventListener('click', (event) => {
         event.stopPropagation();
         console.log("Delete clicked");
         chrome.storage.local.get(['list'], clipboard => {
@@ -116,17 +130,16 @@ function addClipboardListItem(text){
     });
     
     listDiv.addEventListener('click', (event) => {
-        let {textContent} = event.target;
-        navigator.clipboard.writeText(textContent)
+        navigator.clipboard.writeText(text)
         .then(() => {
             console.log(`Text saved to clipboard`);
             chrome.storage.local.get(['list'], clipboard => {
                 let list = clipboard.list;
-                let index = list.indexOf(textContent);
+                let index = list.indexOf(text);
                 if (index !== -1)
                     list.splice(index, 1);
 
-                list.unshift(textContent);
+                list.unshift(text);
                 _clipboardList.innerHTML = "";
                 chrome.storage.local.set({'list': list}, () => getClipboardText());
             });
@@ -139,5 +152,6 @@ function addClipboardListItem(text){
         }, 3000);
     });
 }
+
 
 getClipboardText();
