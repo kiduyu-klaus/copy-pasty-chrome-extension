@@ -2,9 +2,11 @@ console.log("Popup is running");
 let _clipboardList = document.querySelector("#clipboard_list");
 let _itemCount = document.querySelector("#item-count");
 let _deleteAllBtn = document.querySelector("#delete-all-btn");
+let _pasteBtn = document.querySelector("#paste-btn");
 let _confirmDialog = document.querySelector("#confirm-dialog");
 let _confirmCancel = document.querySelector("#confirm-cancel");
 let _confirmDelete = document.querySelector("#confirm-delete");
+let _maxListSize = 15;
 
 function updateItemCount(count) {
     if (_itemCount) {
@@ -191,6 +193,45 @@ function addClipboardListItem(text){
 }
 
 // Event Listeners
+_pasteBtn.addEventListener('click', async () => {
+    try {
+        const clipboardText = await navigator.clipboard.readText();
+        
+        if (clipboardText.length === 0) {
+            showSnackbar("Clipboard is empty!");
+            return;
+        }
+        
+        chrome.storage.local.get(['list'], (clipboard) => {
+            let list = clipboard.list || [];
+            
+            // Check if already in list
+            if (list.indexOf(clipboardText) !== -1) {
+                showSnackbar("Already in clipboard history!");
+                return;
+            }
+            
+            // Enforce max list size
+            if (list.length === _maxListSize) {
+                list.pop();
+            }
+            
+            // Add to beginning of list
+            list.unshift(clipboardText);
+            
+            // Save and refresh
+            chrome.storage.local.set({'list': list}, () => {
+                _clipboardList.innerHTML = "";
+                getClipboardText();
+                showSnackbar("Added to clipboard history!");
+            });
+        });
+    } catch (err) {
+        console.error('Failed to read clipboard:', err);
+        showSnackbar("Failed to read clipboard!");
+    }
+});
+
 _deleteAllBtn.addEventListener('click', () => {
     showConfirmDialog();
 });

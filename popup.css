@@ -418,3 +418,40 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 6px;
     padding: 0;
 }
+/* Header Actions Container */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Paste Button */
+.paste-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    backdrop-filter: blur(10px);
+}
+
+.paste-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.paste-btn:active {
+    transform: scale(0.95);
+}
+
+.paste-btn i {
+    font-size: 14px;
+}
